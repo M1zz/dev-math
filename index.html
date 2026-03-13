@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개발자를 위한 수학 — S9-1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-tag">S9-1 · 개발자를 위한 수학</div>
+  <h1>Mathematics<br>for Developers</h1>
+  <p>알고리즘 복잡도 증명부터 그래픽스 변환, ML 원리까지.<br>
+     코드 뒤에 숨어있는 수학을 직접 만져보세요.</p>
+  <div class="math-bg">
+    <span class="math-symbol" style="font-size:80px;top:20px;right:120px;animation-delay:0s">∑</span>
+    <span class="math-symbol" style="font-size:50px;top:80px;right:40px;animation-delay:1.5s">∇</span>
+    <span class="math-symbol" style="font-size:60px;top:140px;right:200px;animation-delay:0.8s">∫</span>
+    <span class="math-symbol" style="font-size:45px;bottom:60px;right:80px;animation-delay:2s">∈</span>
+    <span class="math-symbol" style="font-size:70px;bottom:30px;right:220px;animation-delay:0.4s">⊕</span>
+    <span class="math-symbol" style="font-size:40px;top:50%;right:160px;animation-delay:1.2s">∩</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <button class="nav-btn active" onclick="switchSection('discrete', this)">
+    <span class="nav-dot"></span>이산수학
+  </button>
+  <button class="nav-btn" onclick="switchSection('linalg', this)">
+    <span class="nav-dot"></span>선형대수
+  </button>
+  <button class="nav-btn" onclick="switchSection('prob', this)">
+    <span class="nav-dot"></span>확률과 통계
+  </button>
+</nav>
+
+<!-- ─────────────────────────────────────── -->
+<!--  SECTION 1 : 이산수학                   -->
+<!-- ─────────────────────────────────────── -->
+<div class="section active" id="discrete">
+  <div class="section-intro reveal">
+    <div class="section-label">01 / Discrete Mathematics</div>
+    <h2>이산수학 — 알고리즘의 수학적 기반</h2>
+    <p>논리학, 집합론, 귀납법, 그래프 이론. 코드를 증명하고 최적화하는 언어입니다.</p>
+  </div>
+
+  <div class="topics-grid">
+
+    <!-- 드모르간 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>드모르간 법칙</h3>
+          <div class="subtitle">DE MORGAN'S LAW · 조건문 최적화</div>
+        </div>
+        <div class="card-icon">¬</div>
+      </div>
+      <div class="card-body">
+        <p>NOT(A AND B)는 (NOT A) OR (NOT B)와 동치입니다. 복잡한 조건문을 단순화할 때 핵심 도구가 됩니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">드모르간 제1법칙</div>
+          ¬(A ∧ B) ≡ (¬A) ∨ (¬B)
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">드모르간 제2법칙</div>
+          ¬(A ∨ B) ≡ (¬A) ∧ (¬B)
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 진리표 인터랙티브</div>
+          <div class="truth-inputs">
+            <div class="toggle-var">
+              <span>A</span>
+              <div class="toggle-switch" id="toggleA" onclick="toggleVar('A')"><div class="toggle-knob"></div></div>
+              <span id="valA">F</span>
+            </div>
+            <div class="toggle-var">
+              <span>B</span>
+              <div class="toggle-switch" id="toggleB" onclick="toggleVar('B')"><div class="toggle-knob"></div></div>
+              <span id="valB">F</span>
+            </div>
+          </div>
+          <table class="truth-table">
+            <thead>
+              <tr><th>A</th><th>B</th><th>A∧B</th><th>¬(A∧B)</th><th>¬A∨¬B</th><th>동치?</th></tr>
+            </thead>
+            <tbody id="truthBody"></tbody>
+          </table>
+        </div>
+        <div class="code-block">
+<span class="cm">// Swift: 드모르간 적용 전</span>
+<span class="kw">if</span> !(isLoggedIn && hasPermission) { ... }
+
+<span class="cm">// 드모르간 적용 후 (더 읽기 쉬움)</span>
+<span class="kw">if</span> !isLoggedIn || !hasPermission { ... }
+        </div>
+      </div>
+    </div>
+
+    <!-- 집합론 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>집합론</h3>
+          <div class="subtitle">SET THEORY · Swift Set API 연결</div>
+        </div>
+        <div class="card-icon">∩</div>
+      </div>
+      <div class="card-body">
+        <p>합집합, 교집합, 차집합은 Set 자료구조의 수학적 기반입니다. iOS의 Set API가 왜 이런 메서드를 갖는지 이해할 수 있습니다.</p>
+        <div class="demo-area">
+          <div class="demo-title">▸ Venn 다이어그램 — 연산 선택</div>
+          <div class="venn-controls">
+            <button class="venn-btn active" id="vb-union" onclick="setVennOp('union', this)">A ∪ B (합집합)</button>
+            <button class="venn-btn" id="vb-inter" onclick="setVennOp('intersection', this)">A ∩ B (교집합)</button>
+            <button class="venn-btn" id="vb-diff" onclick="setVennOp('difference', this)">A − B (차집합)</button>
+            <button class="venn-btn" id="vb-sym" onclick="setVennOp('symmetric', this)">A △ B (대칭차)</button>
+          </div>
+          <canvas id="vennCanvas" height="200" style="max-height:200px"></canvas>
+          <div class="venn-result" id="vennResult"></div>
+        </div>
+        <div class="code-block">
+<span class="kw">let</span> A: <span class="type">Set</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>]
+<span class="kw">let</span> B: <span class="type">Set</span> = [<span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>]
+
+A.<span class="fn">union</span>(B)         <span class="cm">// {1,2,3,4,5,6} — 합집합</span>
+A.<span class="fn">intersection</span>(B)  <span class="cm">// {3,4}         — 교집합</span>
+A.<span class="fn">subtracting</span>(B)   <span class="cm">// {1,2}         — 차집합</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수학적 귀납법 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>수학적 귀납법</h3>
+          <div class="subtitle">MATHEMATICAL INDUCTION · 재귀 정확성 증명</div>
+        </div>
+        <div class="card-icon">∀</div>
+      </div>
+      <div class="card-body">
+        <p>재귀 함수가 올바른지 증명하는 방법입니다. 기저 조건이 base case이고, 귀납 단계가 recursive step입니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">1부터 n까지 합</div>
+          1 + 2 + ... + n = n(n+1)/2
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 귀납 증명 단계 — n을 선택하세요</div>
+          <div class="control-row">
+            <label>n 값</label>
+            <input type="range" min="1" max="10" value="4" id="nRange" oninput="updateInduction(this.value)">
+            <span class="val-display" id="nVal">4</span>
+          </div>
+          <div id="inductionSteps"></div>
+        </div>
+        <div class="code-block">
+<span class="cm">// 재귀 함수 — 귀납법 구조와 동일</span>
+<span class="kw">func</span> <span class="fn">sum</span>(_ n: <span class="type">Int</span>) -> <span class="type">Int</span> {
+  <span class="kw">guard</span> n > <span class="num">0</span> <span class="kw">else</span> { <span class="kw">return</span> <span class="num">0</span> }  <span class="cm">// Base case</span>
+  <span class="kw">return</span> n + <span class="fn">sum</span>(n - <span class="num">1</span>)           <span class="cm">// Inductive step</span>
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- 그래프 이론 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>그래프 이론</h3>
+          <div class="subtitle">GRAPH THEORY · BFS / DFS</div>
+        </div>
+        <div class="card-icon">⬡</div>
+      </div>
+      <div class="card-body">
+        <p>BFS와 DFS는 그래프 탐색의 두 가지 전략입니다. BFS는 큐, DFS는 스택(or 재귀)로 구현됩니다.</p>
+        <div class="demo-area">
+          <div class="demo-title">▸ BFS / DFS 시각화</div>
+          <div class="graph-area">
+            <div class="graph-canvas-wrap">
+              <canvas id="graphCanvas" height="220"></canvas>
+            </div>
+            <div class="graph-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>시작 노드</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>방문 완료</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--rose)"></div>큐/스택</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--surface2)"></div>미방문</div>
+              <div class="traversal-order" id="traversalOrder"></div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-amber" onclick="runTraversal('bfs')">BFS 실행</button>
+            <button class="btn btn-teal" onclick="runTraversal('dfs')">DFS 실행</button>
+            <button class="btn btn-ghost" onclick="resetGraph()">초기화</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /topics-grid -->
+</div><!-- /discrete -->
+
+
+<!-- ─────────────────────────────────────── -->
+<!--  SECTION 2 : 선형대수                   -->
+<!-- ─────────────────────────────────────── -->
+<div class="section" id="linalg">
+  <div class="section-intro reveal">
+    <div class="section-label">02 / Linear Algebra</div>
+    <h2>선형대수 — 그래픽스와 ML의 언어</h2>
+    <p>행렬은 변환을 합성하는 수단입니다. ARKit, SceneKit, CoreML 모두 이 언어로 동작합니다.</p>
+  </div>
+
+  <div class="topics-grid">
+
+    <!-- 벡터 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>벡터 연산</h3>
+          <div class="subtitle">VECTORS · 방향과 크기</div>
+        </div>
+        <div class="card-icon">→</div>
+      </div>
+      <div class="card-body">
+        <p>벡터는 방향과 크기를 가진 양입니다. 내적(dot product)은 두 벡터의 유사도, 외적(cross product)은 법선 벡터 계산에 사용됩니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">내적 (Dot Product)</div>
+          <span style="font-size:16px">a⃗ · b⃗ = |a||b|cos θ = a₁b₁ + a₂b₂</span>
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 벡터 시각화 — 슬라이더로 조작</div>
+          <div class="control-row">
+            <label>A 각도</label>
+            <input type="range" min="0" max="360" value="30" id="vecAAngle" oninput="updateVectors()">
+            <span class="val-display" id="vecAVal">30°</span>
+          </div>
+          <div class="control-row">
+            <label>B 각도</label>
+            <input type="range" min="0" max="360" value="120" id="vecBAngle" oninput="updateVectors()">
+            <span class="val-display" id="vecBVal">120°</span>
+          </div>
+          <canvas id="vectorCanvas" height="220"></canvas>
+          <div class="dot-stats">
+            <span class="dot-stat">내적: <span id="dotProduct" style="color:var(--amber)">0.00</span></span>
+            <span class="dot-stat">각도: <span id="vecAngle" style="color:var(--teal)">0°</span></span>
+            <span class="dot-stat">유사도: <span id="vecSim" style="color:var(--lime)">-</span></span>
+          </div>
+        </div>
+        <div class="code-block">
+<span class="cm">// SceneKit — 두 노드 사이 방향 벡터</span>
+<span class="kw">import</span> SceneKit
+
+<span class="kw">let</span> from = SCNVector3(<span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>)
+<span class="kw">let</span> to   = SCNVector3(<span class="num">3</span>, <span class="num">4</span>, <span class="num">0</span>)
+<span class="kw">let</span> dir  = <span class="fn">normalize</span>(to - from)  <span class="cm">// 단위 벡터</span>
+<span class="kw">let</span> dist = <span class="fn">length</span>(to - from)      <span class="cm">// 크기 = 5.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 변환 행렬 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>변환 행렬</h3>
+          <div class="subtitle">TRANSFORMATION MATRIX · ARKit / SceneKit</div>
+        </div>
+        <div class="card-icon">⊞</div>
+      </div>
+      <div class="card-body">
+        <p>이동·회전·스케일은 행렬 곱셈으로 합성됩니다. ARKit의 simd_float4x4가 바로 이 변환 행렬입니다.</p>
+        <div class="demo-area">
+          <div class="demo-title">▸ 2D 변환 인터랙티브</div>
+          <div class="control-row">
+            <label>회전 θ</label>
+            <input type="range" min="0" max="360" value="0" id="rotAngle" oninput="updateTransform()">
+            <span class="val-display" id="rotVal">0°</span>
+          </div>
+          <div class="control-row">
+            <label>스케일 s</label>
+            <input type="range" min="50" max="200" value="100" id="scaleVal2" oninput="updateTransform()">
+            <span class="val-display" id="scaleDisp">1.0×</span>
+          </div>
+          <div class="control-row">
+            <label>이동 tx</label>
+            <input type="range" min="-80" max="80" value="0" id="translateX" oninput="updateTransform()">
+            <span class="val-display" id="txDisp">0</span>
+          </div>
+          <canvas id="transformCanvas" height="220"></canvas>
+          <div id="matrixDisplay"></div>
+        </div>
+        <div class="code-block">
+<span class="cm">// ARKit — 변환 행렬 읽기</span>
+<span class="kw">let</span> transform = anchor.transform  <span class="cm">// simd_float4x4</span>
+
+<span class="kw">let</span> position = <span class="type">SCNVector3</span>(
+  transform.columns.<span class="num">3</span>.x,
+  transform.columns.<span class="num">3</span>.y,
+  transform.columns.<span class="num">3</span>.z
+)
+        </div>
+      </div>
+    </div>
+
+    <!-- CoreML 행렬 곱 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>CoreML과 행렬 연산</h3>
+          <div class="subtitle">MATRIX MULTIPLICATION · Neural Networks</div>
+        </div>
+        <div class="card-icon">⊗</div>
+      </div>
+      <div class="card-body">
+        <p>신경망의 각 레이어는 행렬 곱셈입니다. 입력 벡터 × 가중치 행렬 + 편향이 모든 레이어의 기본 연산입니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">레이어 연산</div>
+          <span style="font-size:16px">y = f(Wx + b)</span>
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 행렬 곱셈 단계별 시각화</div>
+          <div id="matMulDisplay"></div>
+          <div class="btn-row">
+            <button class="btn btn-amber" onclick="stepMatMul()">다음 단계 →</button>
+            <button class="btn btn-ghost" onclick="resetMatMul()">처음으로</button>
+          </div>
+          <div class="matmul-explain" id="matMulExplain"></div>
+        </div>
+        <div class="code-block">
+<span class="cm">// Swift — 행렬 곱 (Accelerate 프레임워크)</span>
+<span class="kw">import</span> Accelerate
+
+<span class="fn">cblas_sgemm</span>(CblasRowMajor, CblasNoTrans, CblasNoTrans,
+  m, n, k, <span class="num">1.0</span>, &W, k, &x, n, <span class="num">0.0</span>, &result, n)
+<span class="cm">// CoreML은 내부적으로 이 연산을 GPU에서 수행</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 행렬식 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>행렬식과 고유값</h3>
+          <div class="subtitle">DETERMINANT & EIGENVALUES · PCA의 수학</div>
+        </div>
+        <div class="card-icon">λ</div>
+      </div>
+      <div class="card-body">
+        <p>행렬식(det)은 선형 변환이 공간을 얼마나 늘리거나 줄이는지 나타냅니다. 고유값·고유벡터는 PCA와 추천 시스템의 핵심입니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">2×2 행렬식</div>
+          det(A) = ad − bc
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 행렬식 계산기</div>
+          <div class="det-grid">
+            <input class="ab-input" type="number" id="ma" value="3" oninput="calcDet()">
+            <input class="ab-input" type="number" id="mb" value="1" oninput="calcDet()">
+            <input class="ab-input" type="number" id="mc" value="2" oninput="calcDet()">
+            <input class="ab-input" type="number" id="md" value="4" oninput="calcDet()">
+          </div>
+          <canvas id="detCanvas" height="180"></canvas>
+          <div class="det-result" id="detResult"></div>
+        </div>
+        <div class="code-block">
+<span class="kw">let</span> det = a*d - b*c
+<span class="kw">if</span> det == <span class="num">0</span> {
+  <span class="cm">// 역행렬 없음 — 특이 행렬 (singular matrix)</span>
+} <span class="kw">else</span> {
+  <span class="cm">// 역행렬 존재 — CoreML 역변환 가능</span>
+}
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /topics-grid -->
+</div><!-- /linalg -->
+
+
+<!-- ─────────────────────────────────────── -->
+<!--  SECTION 3 : 확률과 통계               -->
+<!-- ─────────────────────────────────────── -->
+<div class="section" id="prob">
+  <div class="section-intro reveal">
+    <div class="section-label">03 / Probability & Statistics</div>
+    <h2>확률과 통계 — 데이터 기반 의사결정</h2>
+    <p>A/B 테스트의 신뢰도, 추천 알고리즘의 근거, 수익 모델 계산. 모두 확률이 기반입니다.</p>
+  </div>
+
+  <div class="topics-grid">
+
+    <!-- 베이즈 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>베이즈 정리</h3>
+          <div class="subtitle">BAYES' THEOREM · 추천 / 스팸 필터</div>
+        </div>
+        <div class="card-icon">∝</div>
+      </div>
+      <div class="card-body">
+        <p>사전 지식(prior)을 새 증거로 업데이트하는 방법입니다. 스팸 필터, 추천 시스템, 의료 진단의 수학적 토대입니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">베이즈 정리</div>
+          P(A|B) = P(B|A) · P(A) / P(B)
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 스팸 필터 시뮬레이터</div>
+          <p style="font-size:12px;color:var(--text2);margin-bottom:12px">이메일에 특정 단어가 있을 때 스팸일 확률을 계산합니다.</p>
+          <div class="control-row">
+            <label>P(스팸)</label>
+            <input type="range" min="1" max="80" value="30" id="priorSpam" oninput="updateBayes()">
+            <span class="val-display" id="priorVal">30%</span>
+          </div>
+          <div class="control-row">
+            <label>P(단어|스팸)</label>
+            <input type="range" min="1" max="99" value="80" id="likeliSpam" oninput="updateBayes()">
+            <span class="val-display" id="likeliSpamVal">80%</span>
+          </div>
+          <div class="control-row">
+            <label>P(단어|정상)</label>
+            <input type="range" min="1" max="99" value="10" id="likeliHam" oninput="updateBayes()">
+            <span class="val-display" id="likeliHamVal">10%</span>
+          </div>
+          <div class="bayes-result" id="bayesResult">
+            <div class="bayes-stat">
+              <span class="val" id="posteriorSpam">-</span>
+              <div class="lbl">P(스팸 | 단어 있음)</div>
+            </div>
+            <div class="bayes-stat">
+              <span class="val" id="posteriorHam">-</span>
+              <div class="lbl">P(정상 | 단어 있음)</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="bayesBar" style="width:0%"></div>
+          </div>
+          <div class="bayes-verdict" id="bayesVerdict"></div>
+        </div>
+        <div class="code-block">
+<span class="cm">// 나이브 베이즈 분류기 (간략 버전)</span>
+<span class="kw">func</span> <span class="fn">isSpam</span>(words: [<span class="type">String</span>]) -> <span class="type">Bool</span> {
+  <span class="kw">var</span> score = <span class="fn">log</span>(priorSpam)
+  <span class="kw">for</span> word <span class="kw">in</span> words {
+    score += <span class="fn">log</span>(likelihood[word] ?? <span class="num">0.01</span>)
+  }
+  <span class="kw">return</span> score > threshold
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- A/B 테스트 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>A/B 테스트 유의성</h3>
+          <div class="subtitle">STATISTICAL SIGNIFICANCE · Z-test</div>
+        </div>
+        <div class="card-icon">≠</div>
+      </div>
+      <div class="card-body">
+        <p>A와 B 그룹의 전환율 차이가 우연인지, 통계적으로 유의미한 차이인지 Z-검정으로 판단합니다. p &lt; 0.05가 기준입니다.</p>
+        <div class="demo-area">
+          <div class="demo-title">▸ A/B 검정 계산기</div>
+          <div class="ab-grid">
+            <div class="ab-group group-a">
+              <h4>그룹 A (현재)</h4>
+              <input class="ab-input" type="number" id="aN" value="1000" placeholder="방문자 수" oninput="calcAB()">
+              <input class="ab-input" type="number" id="aConv" value="50" placeholder="전환 수" oninput="calcAB()">
+              <div class="conversion-rate group-a" id="rateA">5.00%</div>
+            </div>
+            <div class="ab-group group-b">
+              <h4>그룹 B (변형)</h4>
+              <input class="ab-input" type="number" id="bN" value="1000" placeholder="방문자 수" oninput="calcAB()">
+              <input class="ab-input" type="number" id="bConv" value="70" placeholder="전환 수" oninput="calcAB()">
+              <div class="conversion-rate group-b" id="rateB">7.00%</div>
+            </div>
+          </div>
+          <div class="significance-box" id="sigBox">
+            <span class="z-score" id="zScore">-</span>
+            <div class="sig-label" id="sigLabel">Z-score</div>
+            <div style="margin-top:8px" id="sigBadge"></div>
+          </div>
+          <div class="ab-explain" id="abExplain"></div>
+        </div>
+        <div class="code-block">
+<span class="kw">let</span> p1 = Double(aConv) / Double(aN)
+<span class="kw">let</span> p2 = Double(bConv) / Double(bN)
+<span class="kw">let</span> pPool = (aConv + bConv) / Double(aN + bN)
+<span class="kw">let</span> z = (p2 - p1) / <span class="fn">sqrt</span>(pPool * (<span class="num">1</span>-pPool) * (<span class="num">1</span>/aN + <span class="num">1</span>/bN))
+<span class="cm">// |z| > 1.96 → 95% 신뢰수준에서 유의미</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 기댓값 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>기댓값과 수익 모델</h3>
+          <div class="subtitle">EXPECTED VALUE · LTV / ARPU 계산</div>
+        </div>
+        <div class="card-icon">𝔼</div>
+      </div>
+      <div class="card-body">
+        <p>기댓값은 각 결과의 확률 가중 평균입니다. 앱의 LTV(Lifetime Value)와 ARPU(평균 수익)를 수학적으로 계산하는 기반입니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">기댓값</div>
+          𝔼[X] = Σ xᵢ · P(xᵢ)
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 앱 수익 모델 기댓값</div>
+          <p style="font-size:12px;color:var(--text2);margin-bottom:14px">구독 티어별 비율을 조정하여 예상 ARPU를 계산하세요.</p>
+          <div id="evControls"></div>
+          <div class="ev-result-box">
+            <div class="ev-label">기댓값 (월 ARPU)</div>
+            <div class="ev-value" id="evResult">₩0</div>
+            <div class="ev-breakdown" id="evBreakdown"></div>
+          </div>
+          <canvas id="evChart" height="140" style="margin-top:14px"></canvas>
+        </div>
+        <div class="code-block">
+<span class="kw">let</span> tiers: [(price: <span class="type">Double</span>, prob: <span class="type">Double</span>)] = [
+  (<span class="num">0</span>,     <span class="num">0.70</span>),  <span class="cm">// 무료 70%</span>
+  (<span class="num">3900</span>,  <span class="num">0.20</span>),  <span class="cm">// 라이트 20%</span>
+  (<span class="num">9900</span>,  <span class="num">0.08</span>),  <span class="cm">// 스탠다드 8%</span>
+  (<span class="num">19900</span>, <span class="num">0.02</span>),  <span class="cm">// 프로 2%</span>
+]
+<span class="kw">let</span> arpu = tiers.<span class="fn">reduce</span>(<span class="num">0</span>) { $0 + $1.price * $1.prob }
+        </div>
+      </div>
+    </div>
+
+    <!-- 정규분포 -->
+    <div class="topic-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h3>정규분포와 표준편차</h3>
+          <div class="subtitle">NORMAL DISTRIBUTION · 성능 분석</div>
+        </div>
+        <div class="card-icon">σ</div>
+      </div>
+      <div class="card-body">
+        <p>앱의 응답 시간, 사용자 세션 길이, 로딩 속도는 대부분 정규분포를 따릅니다. σ(표준편차)로 성능의 일관성을 측정합니다.</p>
+        <div class="formula-box">
+          <div class="formula-label">정규분포 PDF</div>
+          <span style="font-size:14px">f(x) = 1/(σ√2π) · e^(−(x−μ)²/2σ²)</span>
+        </div>
+        <div class="demo-area">
+          <div class="demo-title">▸ 앱 응답시간 분포 시뮬레이터</div>
+          <div class="control-row">
+            <label>평균 μ (ms)</label>
+            <input type="range" min="50" max="500" value="200" id="muRange" oninput="updateNormal()">
+            <span class="val-display" id="muVal">200ms</span>
+          </div>
+          <div class="control-row">
+            <label>표준편차 σ</label>
+            <input type="range" min="10" max="150" value="40" id="sigmaRange" oninput="updateNormal()">
+            <span class="val-display" id="sigmaVal">40ms</span>
+          </div>
+          <canvas id="normalCanvas" height="180"></canvas>
+          <div class="normal-stats" id="normalStats"></div>
+        </div>
+        <div class="code-block">
+<span class="kw">let</span> mu: <span class="type">Double</span> = <span class="num">200</span>   <span class="cm">// 평균 200ms</span>
+<span class="kw">let</span> sigma: <span class="type">Double</span> = <span class="num">40</span>  <span class="cm">// 표준편차 40ms</span>
+<span class="kw">let</span> p95 = mu + <span class="num">1.645</span> * sigma  <span class="cm">// ≈ 265.8ms</span>
+<span class="kw">let</span> p99 = mu + <span class="num">2.326</span> * sigma  <span class="cm">// ≈ 293.0ms</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /topics-grid -->
+</div><!-- /prob -->
+
+
+<script src="js/discrete.js"></script>
+<script src="js/linalg.js"></script>
+<script src="js/probability.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

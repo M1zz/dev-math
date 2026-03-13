@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Local dev
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+Thumbs.db
